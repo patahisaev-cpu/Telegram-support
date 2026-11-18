@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo Lab</title>
+</head>
+<body>
+<h1>DEMO LAB</h1>
+<p>Тестовая передача вымышленных чисел</p>
+
+<input id="testNumber" placeholder="Например, 12345">
+<button onclick="sendTest()">Отправить тест</button>
+
+<p id="result">Ожидание теста</p>
+
+<script>
+function sendTest() {
+  const value = document.getElementById("testNumber").value;
+  if (!/^\d{5}$/.test(value)) {
+    document.getElementById("result").textContent =
+      "Введите ровно 5 цифр";
+    return;
+  }
+  document.getElementById("result").textContent =
+    "Тестовое значение принято: " + value;
+}
+</script>
+</body>
+</html>
