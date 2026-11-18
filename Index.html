@@ -16,12 +16,37 @@
 <p id="result">Ожидание теста</p>
 
 <script>
-function sendTest() {
+
+async function sendTest() {
   const value = document.getElementById("testNumber").value;
+  const result = document.getElementById("result");
+
   if (!/^\d{5}$/.test(value)) {
-    document.getElementById("result").textContent =
-      "Введите ровно 5 цифр";
+    result.textContent = "Введите 5 тестовых цифр";
     return;
+  }
+
+  result.textContent = "Отправка теста...";
+
+  try {
+    const response = await fetch("/api/log-test", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ number: value })
+    });
+
+    const data = await response.json();
+
+    result.textContent = data.success
+      ? "Тест успешно принят сервером!"
+      : "Ошибка отправки";
+  } catch (error) {
+    result.textContent = "Сервер пока недоступен";
+  }
+}
+
   }
   document.getElementById("result").textContent =
     "Тестовое значение принято: " + value;
